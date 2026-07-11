@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico — Hotel Sete Ilhas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --white: #FFFFFF;
+    --off: #F7F8F6;
+    --ocean: #3B7A8C;
+    --ocean-light: #5A9BAD;
+    --sand: #C8B89A;
+    --text: #1A1A1A;
+    --text-mid: #6B6B6B;
+    --text-light: #ABABAB;
+    --border: #E8E8E4;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    padding: 28px 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .nav-tag {
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-light);
+  }
+
+  /* HERO */
+  .hero {
+    padding: 100px 56px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: end;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-left {}
+
+  .hero-eyebrow {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--ocean);
+    margin-bottom: 32px;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 6vw, 80px);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -1px;
+    color: var(--text);
+    margin-bottom: 32px;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--ocean);
+  }
+
+  .hero-desc {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text-mid);
+    line-height: 1.9;
+    max-width: 360px;
+  }
+
+  .hero-right {
+    padding-bottom: 8px;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .stat-box {
+    background: var(--white);
+    padding: 36px 32px;
+  }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-num span {
+    font-size: 28px;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-light);
+  }
+
+  .stat-box.highlight .stat-num {
+    color: var(--ocean);
+  }
+
+  /* WAVE DIVIDER */
+  .wave-divider {
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    opacity: 0.12;
+  }
+
+  .wave-divider svg {
+    display: block;
+    width: 100%;
+  }
+
+  /* SECTION */
+  .section {
+    padding: 80px 56px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    margin-bottom: 64px;
+  }
+
+  .section-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 64px;
+    font-weight: 300;
+    color: var(--border);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  /* DIAG ITEMS */
+  .diag-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .diag-item {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 32px;
+    padding: 40px 0;
+    border-top: 1px solid var(--border);
+    align-items: start;
+  }
+
+  .diag-item:last-child {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .diag-icon-wrap {
+    padding-top: 4px;
+  }
+
+  .diag-icon-wrap svg {
+    width: 22px;
+    height: 22px;
+    stroke: var(--ocean);
+    fill: none;
+    stroke-width: 1.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .diag-body {}
+
+  .diag-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .diag-text {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--text-mid);
+    line-height: 1.9;
+    max-width: 560px;
+  }
+
+  .diag-text strong {
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  /* INSIGHT BOX */
+  .insight-box {
+    margin-top: 56px;
+    background: var(--off);
+    padding: 48px 52px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .insight-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 96px;
+    font-weight: 300;
+    color: var(--ocean);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .insight-text-wrap {}
+
+  .insight-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 12px;
+  }
+
+  .insight-text {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--text-mid);
+    line-height: 1.9;
+    max-width: 400px;
+  }
+
+  /* OPORTUNIDADE */
+  .oport-section {
+    padding: 80px 56px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .oport-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.3;
+    max-width: 720px;
+    margin-bottom: 40px;
+    padding-left: 32px;
+    border-left: 2px solid var(--ocean);
+  }
+
+  .oport-text {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--text-mid);
+    line-height: 1.9;
+    max-width: 520px;
+    padding-left: 32px;
+  }
+
+  /* CTA */
+  .cta-section {
+    padding: 100px 56px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .cta-left {}
+
+  .cta-eyebrow {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 20px;
+  }
+
+  .cta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.15;
+  }
+
+  .cta-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: var(--ocean);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 20px 44px;
+    transition: background 0.2s ease;
+  }
+
+  .cta-btn:hover {
+    background: var(--ocean-light);
+  }
+
+  .cta-note {
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--text-light);
+    letter-spacing: 1px;
+    text-align: center;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 28px 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer-left {
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--text-light);
+    letter-spacing: 1px;
+  }
+
+  .footer-right {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-light);
+  }
+
+  @media (max-width: 700px) {
+    nav { padding: 20px 24px; }
+    .hero { grid-template-columns: 1fr; padding: 64px 24px 56px; gap: 48px; }
+    .section, .oport-section, .cta-section { padding: 60px 24px; }
+    .cta-section { grid-template-columns: 1fr; }
+    .cta-right { align-items: flex-start; }
+    footer { padding: 24px; flex-direction: column; gap: 8px; }
+    .insight-box { grid-template-columns: 1fr; gap: 16px; padding: 36px 28px; }
+    .insight-num { font-size: 64px; }
+    .oport-quote, .oport-text { padding-left: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Hotel Sete Ilhas</div>
+  <div class="nav-tag">Diagnóstico de Perfil</div>
+</nav>
+
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Análise exclusiva · Jurerê, Florianópolis</div>
+    <h1 class="hero-title">O que os<br>números do<br><em>Instagram</em><br>estão dizendo.</h1>
+    <p class="hero-desc">17,4 mil seguidores. Uma média de 25 curtidas por post. Existe uma distância grande entre a audiência que o Hotel Sete Ilhas tem e as reservas que ela poderia gerar.</p>
+  </div>
+  <div class="hero-right">
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-num">17<span>k</span></div>
+        <div class="stat-label">Seguidores</div>
+      </div>
+      <div class="stat-box highlight">
+        <div class="stat-num">25</div>
+        <div class="stat-label">Média de curtidas</div>
+      </div>
+      <div class="stat-box highlight">
+        <div class="stat-num">0<span>,14%</span></div>
+        <div class="stat-label">Taxa de engajamento</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">55</div>
+        <div class="stat-label">Pico no melhor post</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wave-divider">
+  <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 L1440,60 L0,60 Z" fill="#3B7A8C"/>
+  </svg>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <div class="section-title">O que foi identificado no perfil</div>
+  </div>
+  <div class="diag-list">
+
+    <div class="diag-item">
+      <div class="diag-icon-wrap">
+        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <div class="diag-body">
+        <div class="diag-title">17 mil seguidores, 25 curtidas por post</div>
+        <div class="diag-text">Menos de 0,2% da audiência reage ao conteúdo publicado. O algoritmo lê esse sinal e para de entregar o perfil para novas pessoas. <strong>É um ciclo que se fecha sozinho enquanto o perfil continua postando do mesmo jeito.</strong></div>
+      </div>
+    </div>
+
+    <div class="diag-item">
+      <div class="diag-icon-wrap">
+        <!-- âncora / localização marítima -->
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"/><line x1="12" y1="8" x2="12" y2="21"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg>
+      </div>
+      <div class="diag-body">
+        <div class="diag-title">Jurerê não está sendo usado como argumento</div>
+        <div class="diag-text">O hotel fica em um dos endereços mais desejados de Santa Catarina. <strong>Quem pesquisa "hotel em Jurerê" no Instagram não está encontrando o Sete Ilhas com facilidade.</strong> A localização é um diferencial que vende sozinho quando bem comunicado.</div>
+      </div>
+    </div>
+
+    <div class="diag-item">
+      <div class="diag-icon-wrap">
+        <!-- ondas -->
+        <svg viewBox="0 0 24 24"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5s2.5 2 5 2 2.5-2 5-2"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2"/></svg>
+      </div>
+      <div class="diag-body">
+        <div class="diag-title">O melhor Reels prova que o potencial existe</div>
+        <div class="diag-text">Um vídeo mostrando o ambiente à beira-mar chegou a <strong>55 curtidas e comentários como "melhor lugar de Floripa"</strong>. A audiência responde quando o conteúdo mostra a experiência real. Isso não está acontecendo com consistência.</div>
+      </div>
+    </div>
+
+    <div class="diag-item">
+      <div class="diag-icon-wrap">
+        <!-- sol / temporada -->
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </div>
+      <div class="diag-body">
+        <div class="diag-title">Sem estratégia para temporada</div>
+        <div class="diag-text">O inverno é alta temporada para Jurerê. <strong>O perfil não está construindo antecipação, desejo ou urgência de reserva.</strong> Quem está decidindo onde se hospedar agora está sendo impactado pela concorrência, não pelo Sete Ilhas.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-num">55</div>
+    <div class="insight-text-wrap">
+      <div class="insight-label">Pico vs. 25 de média</div>
+      <div class="insight-text">O Reels mostrando o ambiente real do hotel teve mais que o dobro do engajamento médio. Isso não foi sorte. Foi o formato certo chegando às pessoas certas. O problema é que aconteceu uma vez, não toda semana, e sem tráfego pago por trás para amplificar.</div>
+    </div>
+  </div>
+</div>
+
+<div class="oport-section">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <div class="section-title">O que está sendo desperdiçado</div>
+  </div>
+  <blockquote class="oport-quote">
+    Piscina aquecida, beira-mar em Jurerê, restaurante próprio, vaga EV. Ninguém está vendo isso no Instagram.
+  </blockquote>
+  <p class="oport-text">O hotel tem diferenciais que vendem sozinhos quando bem comunicados. O perfil hoje não está usando nenhum desses ativos para gerar reservas. Cada semana sem estratégia é uma semana deixando espaço para o concorrente preencher.</p>
+</div>
+
+<div class="cta-section">
+  <div class="cta-left">
+    <div class="cta-eyebrow">Próximo passo</div>
+    <div class="cta-title">Uma conversa<br>de 20 minutos.<br>Sem enrolação.</div>
+  </div>
+  <div class="cta-right">
+    <a href="https://wa.me/55SEUNUMERO" class="cta-btn">Agendar conversa</a>
+    <div class="cta-note">Diagnóstico preparado exclusivamente<br>para Hotel Sete Ilhas · Jurerê</div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-left">Hotel Sete Ilhas — Diagnóstico de Perfil Instagram</div>
+  <div class="footer-right">Pedro · Gestor de Instagram</div>
+</footer>
+
+</body>
+</html>
